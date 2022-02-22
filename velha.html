@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<head>
+	<style rel="stylesheet" type="text/css">
+	td
+	{
+		border: solid 1px black;
+	}
+	
+	#campo td {
+		background-color: white;
+		width: 100px;
+		height: 100px;
+		color: black;
+		font-size: 100px;
+		text-align: center;
+	}
+	</style>
+</head>
+<body>
+<table id="campo">
+	<tr>
+	   <td onclick="jogar(1)" id="1"></td>
+	   <td onclick="jogar(2)" id="2"></td>
+	   <td onclick="jogar(3)" id="3"></td>
+	</tr>
+	<tr>
+	    <td onclick="jogar(4)" id="4"></td>
+	    <td onclick="jogar(5)" id="5"></td>
+	    <td onclick="jogar(6)" id="6"></td>
+	</tr>
+	<tr>
+	    <td onclick="jogar(7)" id="7"></td>
+	    <td onclick="jogar(8)" id="8"></td>
+	    <td onclick="jogar(9)" id="9"></td>
+	</tr>
+</table>
+
+<script type="text/javascript">
+	var jogador=true;
+
+		 var tab = [[0,0,0], 
+	 				[0,0,0],
+	 				[0,0,0]];
+
+
+	function jogar(id) {
+		if(id==1){
+			colocar(id, 0,0);
+		}else if(id==2){
+			colocar(id, 0,1);
+		}else if(id==3){
+			colocar(id, 0,2);
+		}else if(id==4){
+			colocar(id, 1,0);
+		}else if(id==5){
+			colocar(id, 1,1);
+		}else if(id==6){
+			colocar(id, 1,2);
+		}else if(id==7){
+			colocar(id, 2,0);
+		}else if(id==8){
+			colocar(id, 2,1);
+		}else if(id==9){
+			colocar(id, 2,2);
+		}
+
+
+	}
+
+	var winner = "";
+	function colocar(id,idx_x, idx_y) {
+
+		if(tab[idx_x][idx_y] == 0)
+		{
+			if (jogador) 
+			{
+				colocaX(id);
+				tab[idx_x][idx_y] = 1;
+				winner = "X";
+				verificaVitoria(1);
+			}
+			else
+			{
+				winner = "O";
+				colocaO(id);
+				tab[idx_x][idx_y] = 2;
+				verificaVitoria(2);
+			}
+			jogador = !jogador;
+		}
+	}
+
+	function colocaX(id){
+		document.getElementById(id).innerHTML="X";
+	}
+
+	function colocaO(id){
+		document.getElementById(id).innerHTML="O";
+	}
+
+	function verificaVitoria(j) 
+	{
+		var venceu = false;
+		for(var i = 0; i < 3; i++)
+		{
+			if(tab[i][0] == j &&  tab[i][1] == j && tab[i][2] == j)
+			{
+				venceu = true;
+			}
+		}
+		
+		for(var i = 0; i < 3; i++)
+		{
+			if(tab[0][i] == j &&  tab[1][i] == j && tab[2][i] == j)
+			{
+				venceu = true;
+			}
+		}
+		
+		if(tab[0][0] == j &&  tab[1][1] == j && tab[2][2] == j)
+		{
+			venceu = true;
+		}
+		
+		if(tab[2][0] == j &&  tab[1][1] == j && tab[0][2] == j)
+		{
+			venceu = true;
+		}
+
+		if(venceu)
+			alert(winner+" venceu!");
+
+	}
+
+</script>
+</body>
